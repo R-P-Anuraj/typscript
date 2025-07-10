@@ -1,0 +1,38 @@
+import express from "express";
+import { authUser } from "../middleware/userMiddleware";
+import {
+  registerValidator,
+  loginValidator,
+  updateValidator,
+  deleteValidator,
+} from "../validators/userValidator";
+import * as userController from "../controller/userController";
+import { response } from "../helper/callBack";
+const router = express.Router();
+
+// POST /api/user/register
+router.post(
+  "/register",
+  registerValidator,
+  response(userController.registerUserController)
+);
+router.post(
+  "/login",
+  loginValidator,
+  response(userController.loginUserController)
+);
+router.get("/profile", authUser, response(userController.getProfileController));
+router.put(
+  "/update",
+  authUser,
+  updateValidator,
+  response(userController.updateUserController)
+);
+router.delete(
+  "/delete",
+  authUser,
+  deleteValidator,
+  response(userController.deleteUserController)
+);
+
+export default router;
