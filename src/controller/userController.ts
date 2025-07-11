@@ -11,7 +11,7 @@ import {
   IUser,
   ControllerResponse,
 } from "../interface/userInterface";
-import { fetchAllUsers, userFetchById } from "../helper/userHelper";
+import { fetchAllUsers, userFetchById ,fetchAllUsersAlphabeticOrder } from "../helper/userHelper";
 import { statusCode } from "../helper/statusCode";
 export const registerUserController = async (
   req: Request<{}, {}, IUser>
@@ -47,15 +47,7 @@ export const loginUserController = async (
   req: Request<{}, {}, FullDetails>
 )=> {
   try {
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) {
-    //   // res.status(400).json({ errors: errors.array() });
-    //   return {
-    //     statusCode: statusCode.BAD_REQUEST,
-    //     message: "Validation errors",
-    //     data: errors.array(),
-    //   };
-    // }
+    
     const result = await loginUser(req.body);
     // res.status(200).json({ data: result });
     return {
@@ -72,6 +64,39 @@ export const loginUserController = async (
     };
   }
 };
+
+//get all profile in ablhabetic order
+export const getAllProfileAlphabeticOrderController = async(req:Request<{}, {}, FullDetails>)=>{
+  try{
+  
+    const result = await fetchAllUsersAlphabeticOrder();
+    if (!result) {
+      return {
+        statusCode: statusCode.NOT_FOUND,
+        message: "User not found",
+        data: null,
+      };
+    }
+    return {
+      statusCode: statusCode.OK,
+      message: "User fetched successfully",
+      data: {result:
+        result.map((user) => ({
+          name: user.name,
+          email: user.email,
+          _id: user._id,
+        })),
+      },
+    };
+  }catch(error: any) {
+    return {
+      statusCode: statusCode.INTERNAL_ERROR,
+      message: error.message || "Server error",
+      data: null,
+    };
+  }
+
+} 
 export const getAllProfileController = async(req:Request<{}, {}, FullDetails>)=>{
   try{
   

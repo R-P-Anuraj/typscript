@@ -30,6 +30,11 @@ router.get(
   authUser,
   response(userController.getAllProfileController)
 );
+router.get(
+  "/c",
+  authUser,
+  response(userController.getAllProfileAlphabeticOrderController)
+);
 router.put(
   "/update",
   authUser,

@@ -34,4 +34,7 @@ export const userFetchById = async (
 export const fetchAllUsers = async (): Promise<FullDetails[]> => {
   return await UserModel.find({});
 }
+export const fetchAllUsersAlphabeticOrder = async (): Promise<FullDetails[]> => {
+  return await UserModel.find({}).sort({ name: 1 , email: 1 });
+}
 
