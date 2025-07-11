@@ -6,6 +6,7 @@ export const registerValidator = [
   body("password")
     .isLength({ min: 6 })
     .withMessage("Password must be 6+ chars"),
+  
 ];
 
 export const loginValidator = [
