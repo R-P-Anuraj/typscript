@@ -11,7 +11,7 @@ import {
   IUser,
   ControllerResponse,
 } from "../interface/userInterface";
-import { userFetchById } from "../helper/userHelper";
+import { fetchAllUsers, userFetchById } from "../helper/userHelper";
 import { statusCode } from "../helper/statusCode";
 export const registerUserController = async (
   req: Request<{}, {}, IUser>
@@ -45,7 +45,7 @@ export const registerUserController = async (
 
 export const loginUserController = async (
   req: Request<{}, {}, FullDetails>
-): Promise<ControllerResponse> => {
+)=> {
   try {
     // const errors = validationResult(req);
     // if (!errors.isEmpty()) {
@@ -72,10 +72,35 @@ export const loginUserController = async (
     };
   }
 };
+export const getAllProfileController = async(req:Request<{}, {}, FullDetails>)=>{
+  try{
+  
+    const result = await fetchAllUsers();
+    if (!result) {
+      return {
+        statusCode: statusCode.NOT_FOUND,
+        message: "User not found",
+        data: null,
+      };
+    }
+    return {
+      statusCode: statusCode.OK,
+      message: "User fetched successfully",
+      data: result,
+    };
+  }catch(error: any) {
+    return {
+      statusCode: statusCode.INTERNAL_ERROR,
+      message: error.message || "Server error",
+      data: null,
+    };
+  }
+
+}
 //getporofile
 export const getProfileController = async (
   req: Request
-): Promise<ControllerResponse> => {
+) => {
   try {
     // Assuming user is stored in req.user after authentication
     const userId = (req as any).user.id;
@@ -108,7 +133,7 @@ export const getProfileController = async (
 };
 export const updateUserController = async (
   req: Request<{}, {}, FullDetails>
-): Promise<ControllerResponse> => {
+)=> {
   try {
     const userId = (req as any).user.id;
     const userData = req.body;
@@ -143,7 +168,7 @@ export const updateUserController = async (
 // delete user
 export const deleteUserController = async (
   req: Request
-): Promise<ControllerResponse> => {
+) => {
   try {
     const userId = (req as any).user.id;
     await userDeleteById(userId);
@@ -187,3 +212,4 @@ export const deleteUserController = async (
 //     return;
 //   }
 // };
+

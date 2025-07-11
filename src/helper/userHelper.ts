@@ -30,3 +30,8 @@ export const userFetchById = async (
 ): Promise<FullDetails | null> => {
   return await UserModel.findById(id);
 };
+
+export const fetchAllUsers = async (): Promise<FullDetails[]> => {
+  return await UserModel.find({});
+}
+

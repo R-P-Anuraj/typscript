@@ -81,3 +81,11 @@ export const userDeleteById = async (userId: string) => {
   }
   return { message: "User deleted successfully", user: user };
 };
+
+// export const fetchAllUsers = async (): Promise<FullDetails[]> => {
+//   const users = await UserModel.find().select("-password"); // Exclude password field
+//   if (!users || users.length === 0) {
+//     throw new Error("No users found");
+//   }
+//   return {message: "Users fetched successfully", data: users};
+// }

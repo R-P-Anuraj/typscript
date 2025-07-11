@@ -25,6 +25,11 @@ router.post(
   response(userController.loginUserController)
 );
 router.get("/profile", authUser, response(userController.getProfileController));
+router.get(
+  "/all",
+  authUser,
+  response(userController.getAllProfileController)
+);
 router.put(
   "/update",
   authUser,
