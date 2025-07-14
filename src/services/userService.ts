@@ -6,7 +6,7 @@ import {
   hashPassword,
   comparePassword,
 } from "../helper/userHelper";
-import bcrypt from "bcrypt";
+
 export const registerUser = async (userData: IUser) => {
   const { name, email, password } = userData;
 
