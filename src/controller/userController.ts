@@ -13,6 +13,7 @@ import {
 } from "../interface/userInterface";
 import { fetchAllUsers, userFetchById ,fetchAllUsersAlphabeticOrder } from "../helper/userHelper";
 import { statusCode } from "../helper/statusCode";
+
 export const registerUserController = async (
   req: Request<{}, {}, IUser>
 )=> {
@@ -42,6 +43,7 @@ export const registerUserController = async (
     };
   }
 };
+/*******  e4bee2f9-93aa-4ddd-8ed1-b046f5d71249  *******/
 
 export const loginUserController = async (
   req: Request<{}, {}, FullDetails>

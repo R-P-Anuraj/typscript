@@ -7,7 +7,7 @@ import {
   deleteValidator,
 } from "../validators/userValidator";
 import * as userController from "../controller/userController";
-const {validateRequest} = require("../middleware/validationMiddleware");
+const { validateRequest } = require("../middleware/validationMiddleware");
 import { response } from "../helper/callBack";
 const router = express.Router();
 
@@ -25,20 +25,17 @@ router.post(
   response(userController.loginUserController)
 );
 router.get("/profile", authUser, response(userController.getProfileController));
-router.get(
-  "/all",
-  authUser,
-  response(userController.getAllProfileController)
-);
+router.get("/all", authUser, response(userController.getAllProfileController));
 router.get(
   "/c",
   authUser,
   response(userController.getAllProfileAlphabeticOrderController)
 );
+
 router.put(
   "/update",
   authUser,
-  updateValidator,
+  updateValidator,validateRequest,
   response(userController.updateUserController)
 );
 router.delete(
