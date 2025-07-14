@@ -1,27 +1,20 @@
 import express from "express";
 import { authUser } from "../middleware/userMiddleware";
-import {
-  registerValidator,
-  loginValidator,
-  updateValidator,
-  deleteValidator,
-} from "../validators/userValidator";
 import * as userController from "../controller/userController";
-const { validateRequest } = require("../middleware/validationMiddleware");
+// const { validateRequest } = require("../middleware/validationMiddleware");
+import { loginV, registerV, updateV, deleteV } from "../validators";
 import { response } from "../helper/callBack";
 const router = express.Router();
 
 // POST /api/user/register
 router.post(
   "/register",
-  registerValidator,
-  validateRequest,
+  registerV.registerValidators,
   response(userController.registerUserController)
 );
 router.post(
   "/login",
-  loginValidator,
-  validateRequest,
+  loginV.loginValidators,
   response(userController.loginUserController)
 );
 router.get("/profile", authUser, response(userController.getProfileController));
@@ -31,18 +24,16 @@ router.get(
   authUser,
   response(userController.getAllProfileAlphabeticOrderController)
 );
-
 router.put(
   "/update",
   authUser,
-  updateValidator,validateRequest,
+  updateV.updateValidators,
   response(userController.updateUserController)
 );
 router.delete(
   "/delete",
   authUser,
-  deleteValidator,
-  validateRequest,
+  deleteV.deleteValidators,
   response(userController.deleteUserController)
 );
 

@@ -1,12 +1,13 @@
-
-
 // src/utils/apiResponse.ts
 import { Request, Response, NextFunction } from "express";
 import { ControllerResponse } from "../interface/userInterface";
 
-
 export const response = (
-  controller: (req: Request, res: Response, next: NextFunction) => Promise<ControllerResponse>
+  controller: (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => Promise<ControllerResponse>
 ) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
